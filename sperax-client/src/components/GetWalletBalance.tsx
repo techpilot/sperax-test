@@ -1,22 +1,95 @@
+import { useState } from "react";
+import { isAddress } from "web3-validator";
 import { useWeb3 } from "../contexts/Web3Context";
 
 const GetWalletBalance = () => {
-  const { walletAddress, contract } = useWeb3();
+  const { walletAddress, contract, connectWallet } = useWeb3();
+  const [address, setAddress] = useState<string>("");
+  const [balance, setBalance] = useState<string>("");
+  const [formError, setFormError] = useState<string>("");
+  const [resError, setResError] = useState<string>("");
 
-  const handleGetBalance = async () => {
+  const handleGetBalance = async (e: any) => {
+    e.preventDefault();
     try {
-      if (contract && walletAddress) {
-        const balance = await contract.methods
-          .getBalance("0x70997970c51812dc3a010c7d01b50e0d17dc79c8")
-          .call();
+      if (isAddress(address)) {
+        console.log("before", contract);
+        if (!contract && !walletAddress) {
+          await connectWallet();
+        }
+
+        console.log("after", contract);
+
+        const balance = await contract?.methods.getBalance(address).call();
+        setBalance(balance);
         console.log("BAlance", balance);
+      } else {
+        setFormError("Enter a valid ethereum address");
       }
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
+      if (error?.message.toLowerCase().includes("gas")) {
+        setResError(
+          "You do not have enough gas fee to perform this transaction"
+        );
+      } else {
+        setResError("An error occured, try again");
+      }
+
+      setTimeout(() => {
+        setResError("");
+      }, 5000);
     }
   };
 
-  return <div>GetWalletBalance</div>;
+  return (
+    <div className="m-auto w-full md:w-[500px] h-[230px]">
+      <h3 className="text-center font-semibold text-2xl mb-2">
+        ERC20 Wallet Balance
+      </h3>
+      <form
+        onSubmit={(e) => handleGetBalance(e)}
+        className="w-full h-full bg-white shadow-md rounded-2xl px-5 py-2 flex flex-col justify-around gap-1"
+      >
+        <div className="flex flex-col gap-2">
+          <label className="text-sm font-medium">Ethereum Address</label>
+          <input
+            type="text"
+            placeholder="Enter wallet address"
+            value={address}
+            onChange={(e) => {
+              setAddress(e.target.value);
+              setFormError("");
+            }}
+            className={`${
+              formError ? "border-red-700" : "border-[#00000033]"
+            } text-sm bg-[#F9FBFA] outline-none border h-[40px] w-full p-2 rounded-lg`}
+          />
+          {formError && (
+            <p className="font-medium text-xs text-red-700">{formError}</p>
+          )}
+        </div>
+
+        {resError && (
+          <p className="font-medium px-2 py-3 text-xs bg-red-50 text-red-700 rounded-lg">
+            {resError}
+          </p>
+        )}
+
+        <button
+          type="submit"
+          className="h-[40px] p-1 bg-[#9B31CD] text-sm font-semibold text-white rounded-lg mt-4"
+        >
+          Submit
+        </button>
+      </form>
+
+      <div className="w-full bg-transparent px-5 py-4 flex justify-between border-t border-b mt-4">
+        <p className="text-sm font-medium">Token balance</p>
+        <p className="text-sm font-medium">{balance || "0.00"}</p>
+      </div>
+    </div>
+  );
 };
 
 export default GetWalletBalance;

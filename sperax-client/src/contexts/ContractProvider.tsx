@@ -26,18 +26,17 @@ const ContractContextProvider: React.FC<{ children: ReactNode }> = ({
   }, []);
 
   const connectWallet = async () => {
-    if (web3) {
-      const accounts = await web3.eth.requestAccounts();
-      setWalletAddress(accounts[0]);
-      const networkId = await web3.eth.net.getId();
+    const web3Instance = new Web3(window?.ethereum);
+    const accounts = await web3Instance.eth.requestAccounts();
+    setWalletAddress(accounts[0]);
+    const networkId = await web3Instance.eth.net.getId();
 
-      const contractInstance = new web3.eth.Contract(
-        DesTokenContract.abi,
-        DesTokenContract.address
-      );
-      console.log(contractInstance, networkId);
-      setContract(contractInstance);
-    }
+    const contractInstance = new web3Instance.eth.Contract(
+      DesTokenContract.abi,
+      DesTokenContract.address
+    );
+    console.log(contractInstance, networkId);
+    setContract(contractInstance);
   };
 
   return (

@@ -7,13 +7,11 @@ function App() {
   const { connectWallet } = useWeb3();
 
   useEffect(() => {
-    (async () => {
-      await connectWallet();
-    })();
+    connectWallet();
   }, []);
 
   return (
-    <div className="text-5xl">
+    <div className="h-screen w-screen bg-[#F9FBFA] p-2">
       <GetWalletBalance />
     </div>
   );
