@@ -48,7 +48,7 @@ const GetWalletBalance = () => {
       </h3>
       <div className="w-full bg-transparent px-5 py-4 flex justify-between border-t border-b my-4">
         <p className="text-sm font-medium">Token balance</p>
-        <p className="text-sm font-medium">{balance || "0.00"}</p>
+        <p className="text-sm font-medium">{balance || "0.00"} TKN</p>
       </div>
       <form
         onSubmit={(e) => handleGetBalance(e)}

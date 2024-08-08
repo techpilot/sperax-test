@@ -32,6 +32,7 @@ const SendTokenModal = () => {
     connectContract,
   } = useWeb3();
   const [loading, setLoading] = useState<boolean>(false);
+  const [resError, setResError] = useState<string>("");
 
   const closeModal = () => {
     localStorage.setItem("modal_open", "0");
@@ -50,10 +51,21 @@ const SendTokenModal = () => {
           .send({ from: walletAddress });
       }
       setLoading(false);
-    } catch (error) {
+    } catch (error: any) {
       setLoading(false);
-      console.log(error);
-      //   setResError("an error occured");
+      if (
+        error?.message
+          ?.toLowerCase()
+          ?.includes("user denied transaction signature")
+      ) {
+        setResError("Transaction was not approved");
+      } else {
+        setResError("Transaction could not be completed, try again");
+      }
+
+      setTimeout(() => {
+        setResError("");
+      }, 10000);
     }
   };
 
@@ -77,7 +89,7 @@ const SendTokenModal = () => {
       style={customStyles}
       contentLabel="Send Token"
     >
-      <div className="relative w-[90vw] md:w-[350px] h-[400px] bg-white shadow-lg rounded-2xl flex flex-col gap-1 py-5 px-12">
+      <div className="relative w-[90vw] md:w-[370px] h-[400px] bg-white shadow-lg rounded-2xl flex flex-col gap-1 py-5 px-12">
         <div className="flex flex-col gap-3 items-center">
           <img src={logo} alt="" className="w-10" />
           <p className="md:text-xl text-center font-bold">{`${amount} TKN`} </p>
@@ -99,17 +111,24 @@ const SendTokenModal = () => {
             <p className="text-sm font-medium">Amount</p>
             <p className="text-sm font-medium text-gray-400">{`${amount} TKN`}</p>
           </div>
-
-          <button
-            onClick={handleTokenTransfer}
-            className="h-[40px] p-1 bg-[#9B31CD] text-sm font-semibold text-white rounded-3xl mt-4 mb-7 flex justify-center items-center"
-          >
-            {loading ? (
-              <img src={loading_icon} alt="" className="w-7" />
-            ) : (
-              "Send"
+          <div className="w-full">
+            {resError && (
+              <p className="font-medium px-2 py-3 text-xs bg-red-50 text-red-700 rounded-lg">
+                {resError}
+              </p>
             )}
-          </button>
+
+            <button
+              onClick={handleTokenTransfer}
+              className="w-full h-[40px] p-1 bg-[#9B31CD] text-sm font-semibold text-white rounded-3xl mt-4 mb-7 flex justify-center items-center"
+            >
+              {loading ? (
+                <img src={loading_icon} alt="" className="w-7" />
+              ) : (
+                "Send"
+              )}
+            </button>
+          </div>
         </div>
 
         <div
