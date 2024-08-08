@@ -8,6 +8,15 @@ export interface TokenContextType {
   walletAddress: string;
   connectWallet: () => Promise<any>;
   contract: any;
+  modalIsOpen: number;
+  setModalIsOpen: React.Dispatch<React.SetStateAction<number>>;
+  amount: string;
+  setAmount: React.Dispatch<React.SetStateAction<string>>;
+  recipient: string;
+  setRecipient: React.Dispatch<React.SetStateAction<string>>;
+  setWalletAddress: React.Dispatch<React.SetStateAction<string>>;
+  setContract: React.Dispatch<React.SetStateAction<any>>;
+  connectContract: any;
 }
 
 export const Web3Context = createContext<TokenContextType | undefined>(

@@ -10,6 +10,9 @@ const ContractContextProvider: React.FC<{ children: ReactNode }> = ({
   const [balance, setBalance] = useState<string>("");
   const [walletAddress, setWalletAddress] = useState<string>("");
   const [contract, setContract] = useState<any>(null);
+  const [modalIsOpen, setModalIsOpen] = useState<number>(0);
+  const [recipient, setRecipient] = useState<string>("");
+  const [amount, setAmount] = useState<string>("");
 
   useEffect(() => {
     if (window.ethereum) {
@@ -23,22 +26,36 @@ const ContractContextProvider: React.FC<{ children: ReactNode }> = ({
         "No Ethereum detected in your browser. You should consider trying MetaMask!"
       );
     }
+    connectWallet();
   }, []);
 
   const connectWallet = async () => {
-    const web3Instance = new Web3(window?.ethereum);
-    const accounts = await web3Instance.eth.requestAccounts();
-    setWalletAddress(accounts[0]);
-    const networkId = await web3Instance.eth.net.getId();
+    try {
+      const web3Instance = new Web3(window?.ethereum);
+      const accounts = await web3Instance.eth.requestAccounts();
+      setWalletAddress(accounts[0]);
 
+      const contractInstance = new web3Instance.eth.Contract(
+        DesTokenContract.abi,
+        DesTokenContract.address
+      );
+
+      setContract(contractInstance);
+
+      return accounts[0];
+    } catch (error) {
+      alert("Wallet connection canceled");
+    }
+  };
+
+  const connectContract = () => {
+    const web3Instance = new Web3(window?.ethereum);
     const contractInstance = new web3Instance.eth.Contract(
       DesTokenContract.abi,
       DesTokenContract.address
     );
-    console.log(contractInstance, networkId);
     setContract(contractInstance);
-
-    return accounts[0];
+    return contractInstance;
   };
 
   return (
@@ -50,6 +67,15 @@ const ContractContextProvider: React.FC<{ children: ReactNode }> = ({
         walletAddress,
         connectWallet,
         contract,
+        modalIsOpen,
+        setModalIsOpen,
+        amount,
+        setAmount,
+        recipient,
+        setRecipient,
+        setWalletAddress,
+        setContract,
+        connectContract,
       }}
     >
       {children}

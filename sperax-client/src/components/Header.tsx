@@ -1,16 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import logo from "../assets/logo.svg";
 import { useWeb3 } from "../contexts/Web3Context";
 import { Link } from "react-router-dom";
 
 const Header = () => {
-  const { connectWallet } = useWeb3();
-  const [connectedWallet, setConnectedWallet] = useState<string>("");
+  const { connectWallet, setWalletAddress, walletAddress } = useWeb3();
 
   const handleWalletConnection = async () => {
     try {
       const wallet = await connectWallet();
-      setConnectedWallet(wallet);
+      setWalletAddress(wallet);
       localStorage.setItem("wallet", wallet);
       console.log(wallet);
     } catch (error) {
@@ -20,8 +19,8 @@ const Header = () => {
 
   useEffect(() => {
     const wallet = localStorage.getItem("wallet");
-    setConnectedWallet(wallet!);
-  }, []);
+    setWalletAddress(wallet!);
+  }, [setWalletAddress]);
 
   return (
     <header className="px-1 md:px-24 lg:px-32 py-3 flex items-center justify-between bg-white shadow-sm">
@@ -44,16 +43,16 @@ const Header = () => {
         </Link>
       </div>
 
-      {connectedWallet && (
+      {walletAddress && (
         <div className="p-0.5 bg-[#a75bca] rounded-3xl">
-          <p className="p-1.5 text-xs font-medium bg-[#F9FBFA] rounded-3xl">{`${connectedWallet?.slice(
+          <p className="p-1.5 text-xs font-medium bg-[#F9FBFA] rounded-3xl">{`${walletAddress?.slice(
             0,
             5
-          )}*****${connectedWallet?.slice(-5)}`}</p>
+          )}*****${walletAddress?.slice(-5)}`}</p>
         </div>
       )}
 
-      {!connectedWallet && (
+      {!walletAddress && (
         <button
           onClick={handleWalletConnection}
           className="px-4 py-2 w-max min-w-max text-white font-semibold text-xs md:text-sm rounded-3xl bg-[#9B31CD]"

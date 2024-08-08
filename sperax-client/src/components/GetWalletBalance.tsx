@@ -1,32 +1,31 @@
 import { useState } from "react";
 import { isAddress } from "web3-validator";
 import { useWeb3 } from "../contexts/Web3Context";
+import loading_icon from "../assets/loader.svg";
 
 const GetWalletBalance = () => {
-  const { walletAddress, contract, connectWallet } = useWeb3();
+  const { connectContract } = useWeb3();
   const [address, setAddress] = useState<string>("");
   const [balance, setBalance] = useState<string>("");
   const [formError, setFormError] = useState<string>("");
   const [resError, setResError] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleGetBalance = async (e: any) => {
     e.preventDefault();
     try {
+      setLoading(true);
       if (isAddress(address)) {
-        console.log("before", contract);
-        if (!contract && !walletAddress) {
-          await connectWallet();
-        }
+        const newContract = connectContract();
 
-        console.log("after", contract);
-
-        const balance = await contract?.methods.getBalance(address).call();
+        const balance = await newContract?.methods.getBalance(address).call();
         setBalance(balance);
-        console.log("BAlance", balance);
       } else {
         setFormError("Enter a valid ethereum address");
       }
+      setLoading(false);
     } catch (error: any) {
+      setLoading(false);
       console.log(error);
       if (error?.message.toLowerCase().includes("gas")) {
         setResError(
@@ -82,9 +81,13 @@ const GetWalletBalance = () => {
 
         <button
           type="submit"
-          className="h-[40px] p-1 bg-[#9B31CD] text-sm font-semibold text-white rounded-lg mt-4"
+          className="h-[40px] p-1 bg-[#9B31CD] text-sm font-semibold text-white rounded-3xl mt-4 mb-7 flex justify-center items-center"
         >
-          Submit
+          {loading ? (
+            <img src={loading_icon} alt="" className="w-7" />
+          ) : (
+            "Submit"
+          )}
         </button>
       </form>
     </div>

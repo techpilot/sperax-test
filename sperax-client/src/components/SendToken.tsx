@@ -1,30 +1,41 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useWeb3 } from "../contexts/Web3Context";
 import logo from "../assets/logo.svg";
 
 const SendToken = () => {
-  const { web3, walletAddress, contract } = useWeb3();
+  const {
+    setModalIsOpen,
+    amount,
+    recipient,
+    setAmount,
+    setRecipient,
+    setContract,
+  } = useWeb3();
 
-  const [recipient, setRecipient] = useState<string>("");
-  const [amount, setAmount] = useState<string>("");
   const [addressErr, setAddressErr] = useState<string>("");
   const [amountErr, setAmountErr] = useState<string>("");
-  const [resError, setResError] = useState<string>("");
 
-  const handleTokenTransfer = async () => {
-    try {
-      if (contract && walletAddress) {
-        const amountInWei = web3?.utils.toWei(amount, "ether");
-        await contract.methods
-          .sendToken(recipient, amountInWei)
-          .send({ from: walletAddress });
-        console.log("sent");
-      }
-    } catch (error) {
-      console.log(error);
-      setResError("an error occured");
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+
+    if (!recipient) {
+      setAddressErr("Enter recipient's address");
+      return;
     }
+    if (!amount) {
+      setAmountErr("This field is required");
+      return;
+    }
+
+    localStorage.setItem("modal_open", "1");
+    setModalIsOpen(1);
   };
+
+  useEffect(() => {
+    const contract = JSON.parse(localStorage.getItem("contract")!);
+    console.log(contract);
+    setContract(contract);
+  });
 
   return (
     <div className="m-auto w-full h-[80%] md:w-[400px] flex flex-col justify-center">
@@ -39,7 +50,10 @@ const SendToken = () => {
             <span className="text-gray-500 font-normal">available</span>
           </p>
         </div>
-        <form className="flex-1 flex flex-col justify-between gap-1 p-5">
+        <form
+          onSubmit={(e) => handleSubmit(e)}
+          className="flex-1 flex flex-col justify-between gap-1 p-5"
+        >
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-1">
               <label className="text-sm font-medium">Send to</label>
@@ -49,6 +63,8 @@ const SendToken = () => {
                 value={recipient}
                 onChange={(e) => {
                   setRecipient(e.target.value);
+                  console.log(e.target.value);
+                  localStorage.setItem("recipient", e.target.value);
                   setAddressErr("");
                 }}
                 className={`${
@@ -68,6 +84,7 @@ const SendToken = () => {
                 value={amount}
                 onChange={(e) => {
                   setAmount(e.target.value);
+                  localStorage.setItem("token_amount", e.target.value);
                   setAmountErr("");
                 }}
                 className={`${
@@ -78,17 +95,11 @@ const SendToken = () => {
                 <p className="font-medium text-xs text-red-700">{amountErr}</p>
               )}
             </div>
-
-            {resError && (
-              <p className="font-medium px-2 py-3 text-xs bg-red-50 text-red-700 rounded-lg">
-                {resError}
-              </p>
-            )}
           </div>
 
           <button
             type="submit"
-            className="h-[40px] p-1 bg-[#9B31CD] text-sm font-semibold text-white rounded-lg mt-4"
+            className="h-[40px] p-1 bg-[#9B31CD] text-sm font-semibold text-white rounded-3xl mt-4"
           >
             Next
           </button>
