@@ -37,6 +37,8 @@ const ContractContextProvider: React.FC<{ children: ReactNode }> = ({
     );
     console.log(contractInstance, networkId);
     setContract(contractInstance);
+
+    return accounts[0];
   };
 
   return (

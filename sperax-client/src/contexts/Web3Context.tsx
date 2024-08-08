@@ -6,7 +6,7 @@ export interface TokenContextType {
   balance: string;
   setBalance: React.Dispatch<React.SetStateAction<string>>;
   walletAddress: string;
-  connectWallet: () => Promise<void>;
+  connectWallet: () => Promise<any>;
   contract: any;
 }
 

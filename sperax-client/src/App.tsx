@@ -1,18 +1,18 @@
-import { useEffect } from "react";
 import "./App.css";
 import GetWalletBalance from "./components/GetWalletBalance";
-import { useWeb3 } from "./contexts/Web3Context";
+import Header from "./components/Header";
+import { Route, Routes } from "react-router-dom";
+import SendToken from "./components/SendToken";
 
 function App() {
-  const { connectWallet } = useWeb3();
-
-  useEffect(() => {
-    connectWallet();
-  }, []);
-
   return (
-    <div className="h-screen w-screen bg-[#F9FBFA] p-2">
-      <GetWalletBalance />
+    <div className="h-screen w-screen bg-[#F9FBFA] p-2 overflow-hidden">
+      <Header />
+      <Routes>
+        <Route path="/" element={<GetWalletBalance />} />
+        <Route path="wallet-balance" element={<GetWalletBalance />} />
+        <Route path="transfer" element={<SendToken />} />
+      </Routes>
     </div>
   );
 }

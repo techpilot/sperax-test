@@ -43,13 +43,17 @@ const GetWalletBalance = () => {
   };
 
   return (
-    <div className="m-auto w-full md:w-[500px] h-[230px]">
+    <div className="m-auto w-full h-[80%] md:w-[500px] flex flex-col justify-center">
       <h3 className="text-center font-semibold text-2xl mb-2">
-        ERC20 Wallet Balance
+        Des Token Balance
       </h3>
+      <div className="w-full bg-transparent px-5 py-4 flex justify-between border-t border-b my-4">
+        <p className="text-sm font-medium">Token balance</p>
+        <p className="text-sm font-medium">{balance || "0.00"}</p>
+      </div>
       <form
         onSubmit={(e) => handleGetBalance(e)}
-        className="w-full h-full bg-white shadow-md rounded-2xl px-5 py-2 flex flex-col justify-around gap-1"
+        className="w-full h-[210px] bg-white shadow-md rounded-2xl px-5 py-2 flex flex-col justify-around gap-1"
       >
         <div className="flex flex-col gap-2">
           <label className="text-sm font-medium">Ethereum Address</label>
@@ -83,11 +87,6 @@ const GetWalletBalance = () => {
           Submit
         </button>
       </form>
-
-      <div className="w-full bg-transparent px-5 py-4 flex justify-between border-t border-b mt-4">
-        <p className="text-sm font-medium">Token balance</p>
-        <p className="text-sm font-medium">{balance || "0.00"}</p>
-      </div>
     </div>
   );
 };
