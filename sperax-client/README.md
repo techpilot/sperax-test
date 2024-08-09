@@ -1,9 +1,5 @@
 <br />
 <div align="center">
-  <p>
-    <img src="/public/favicon.ico" alt="Logo" width="80" height="80"/>
-  </p>
-
   <h3 align="center">SPERAX CLIENT</h3>
 
   <p align="center">
