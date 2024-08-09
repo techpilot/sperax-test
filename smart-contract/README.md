@@ -1,13 +1,73 @@
-# Sample Hardhat Project
+<br />
+<div align="center">
+  <h3 align="center">SPERAX SMART CONTRACT</h3>
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a Hardhat Ignition module that deploys that contract.
+  <p align="center">
+    <br />
+    <br />
+    <a href="https://github.com/techpilot/sperax-test.git/issues">View Demo</a>
+  </p>
+</div>
 
-Try running some of the following tasks:
+## About The Project
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat ignition deploy ./ignition/modules/Lock.ts
-```
+This project is a Solidity-based smart contract that allows minting, transferring tokens, and retrieving the balance of a given address. The project is developed using the Hardhat development environment.
+
+### Built With
+
+- [Typescript][Typescript_url]
+- [React.js][React_js]
+
+## Getting Started
+
+Setup and run this project in your computer.
+
+### Prerequisites
+
+- Node
+
+  ```sh
+  sudo apt install nodejs
+  ```
+
+- npm
+
+- Hardhat
+
+### Installation
+
+1. Clone the repository
+   ```sh
+   git clone https://github.com/techpilot/sperax-test.git
+   ```
+2. Navigate to the smart contract directory
+
+   ```sh
+   cd smart-contract
+   ```
+
+3. Install packages
+   ```sh
+   npm install
+   ```
+4. Compile the smart contract
+   ```sh
+   npx hardhat compile
+   ```
+
+### Deployment
+
+1. Start a local Hardhat node
+
+   ```sh
+   npx hardhat node
+   ```
+
+2. Deploy the contract
+   ```sh
+   npx hardhat run scripts/deploy.ts --network hardhat
+   ```
+3. Deploy on testnet
+   ```sh
+   npx hardhat run scripts/deploy.ts --network sepolia
+   ```

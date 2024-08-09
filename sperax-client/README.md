@@ -4,7 +4,7 @@
     <img src="/public/favicon.ico" alt="Logo" width="80" height="80"/>
   </p>
 
-  <h3 align="center">SPERAX TEST</h3>
+  <h3 align="center">SPERAX CLIENT</h3>
 
   <p align="center">
     <br />
@@ -44,11 +44,17 @@ Setup and run this project in your computer.
    ```sh
    git clone https://github.com/techpilot/sperax-test.git
    ```
-2. Install packages
+2. Navigate to frontend directory
+
+   ```sh
+   cd sperax-client
+   ```
+
+3. Install packages
    ```sh
    npm install
    ```
-3. Run the project
+4. Run the project
    ```sh
    npm run start
    ```
