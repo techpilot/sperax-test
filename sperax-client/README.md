@@ -8,8 +8,9 @@
 
   <p align="center">
     <br />
+    <a href="https://github.com/techpilot/sperax-test/blob/main/sperax-client/public/sperax-client-documentation.pdf">View Documentation</a>
     <br />
-    <a href="https://github.com/techpilot/sperax-test.git/issues">View Demo</a>
+    <a href="https://github.com/techpilot/sperax-test.git/issues">Report issues</a>
   </p>
 </div>
 
@@ -66,3 +67,4 @@ Setup and run this project in your computer.
 
 [React_js]: https://react.dev/
 [Typescript_url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+[Docs_url]: https://github.com/techpilot/sperax-test/blob/main/sperax-client/public/sperax-client-documentation.pdf

@@ -4,8 +4,7 @@
 
   <p align="center">
     <br />
-    <br />
-    <a href="https://github.com/techpilot/sperax-test.git/issues">View Demo</a>
+    <a href="https://github.com/techpilot/sperax-test.git/issues">Report issues</a>
   </p>
 </div>
 
