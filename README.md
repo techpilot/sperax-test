@@ -20,5 +20,6 @@ Stephen Ngwu
 
 ### Instructions
 
-- Before running the React project, follow the setup for the smart contract
+- Firstly, setup the smart contract
+- Then, setup the react frontend code
 - Update the ABi and the contract address under the contarcts folder
