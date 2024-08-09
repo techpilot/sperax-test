@@ -3,8 +3,8 @@
   <h3 align="center">SPERAX SMART CONTRACT</h3>
 
   <p align="center">
-  <a href="https://github.com/techpilot/sperax-test/blob/main/smart-contract/sperax-smart-contract-doc.pdf">View Smart Contract Documentation</a>
     <br />
+  <a href="https://github.com/techpilot/sperax-test/blob/main/smart-contract/sperax-smart-contract-doc.pdf">View Smart Contract Documentation</a>
     <br />
     <a href="https://github.com/techpilot/sperax-test.git/issues">Report issues</a>
   </p>

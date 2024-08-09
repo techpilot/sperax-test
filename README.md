@@ -5,6 +5,7 @@
   <p align="center">
     <br />
     <a href="https://github.com/techpilot/sperax-test/blob/main/sperax-client/public/sperax-client-documentation.pdf">View Frontend Documentation</a>
+    <br />
     <a href="https://github.com/techpilot/sperax-test/blob/main/smart-contract/sperax-smart-contract-doc.pdf">View Smart Contract Documentation</a>
     <br />
     <a href="https://github.com/techpilot/sperax-test.git/issues">Report issues</a>
