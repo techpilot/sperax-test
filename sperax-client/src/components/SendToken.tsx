@@ -44,7 +44,7 @@ const SendToken = () => {
   });
 
   return (
-    <div className="m-auto w-full h-[80%] md:w-[400px] flex flex-col justify-center">
+    <div className="m-auto w-full h-[100%] md:w-[400px] flex flex-col justify-center">
       <div className="w-full h-[400px] bg-white shadow-md rounded-2xl flex flex-col gap-1">
         <p className="text-sm md:text-base text-center text-[#B2B2B2] font-medium p-3">
           Des Token

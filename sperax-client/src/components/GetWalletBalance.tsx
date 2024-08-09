@@ -45,7 +45,7 @@ const GetWalletBalance = () => {
   };
 
   return (
-    <div className="m-auto w-full h-[80%] md:w-[500px] flex flex-col justify-center">
+    <div className="m-auto w-full h-[100%] md:w-[500px] flex flex-col justify-center">
       <h3 className="text-center font-semibold text-2xl mb-2">
         Des Token Balance
       </h3>

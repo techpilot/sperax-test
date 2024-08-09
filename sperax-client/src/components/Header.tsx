@@ -22,7 +22,7 @@ const Header = () => {
   }, [setWalletAddress]);
 
   return (
-    <header className="px-1 md:px-24 lg:px-32 py-3 flex items-center justify-between bg-white shadow-sm">
+    <header className="fixed top-0 right-0 left-0 px-1 md:px-24 lg:px-32 py-3 flex items-center justify-between bg-white shadow-sm">
       <div className="flex items-center gap-2 md:gap-5">
         <Link to={"/"}>
           <img src={logo} alt="" />
