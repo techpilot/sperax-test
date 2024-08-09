@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useWeb3 } from "../contexts/Web3Context";
 import logo from "../assets/logo.svg";
+import { isAddress } from "web3-validator";
 
 const SendToken = () => {
   const {
@@ -15,6 +16,8 @@ const SendToken = () => {
   const [addressErr, setAddressErr] = useState<string>("");
   const [amountErr, setAmountErr] = useState<string>("");
 
+  // validates the form and opens the send token modal for
+  // confirming the transfer details before initiating the transfer
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
@@ -27,13 +30,16 @@ const SendToken = () => {
       return;
     }
 
-    localStorage.setItem("modal_open", "1");
-    setModalIsOpen(1);
+    if (isAddress(recipient)) {
+      localStorage.setItem("modal_open", "1");
+      setModalIsOpen(1);
+    } else {
+      setAddressErr("Enter valid ethereum address");
+    }
   };
 
   useEffect(() => {
     const contract = JSON.parse(localStorage.getItem("contract")!);
-    console.log(contract);
     setContract(contract);
   });
 
@@ -63,7 +69,6 @@ const SendToken = () => {
                 value={recipient}
                 onChange={(e) => {
                   setRecipient(e.target.value);
-                  console.log(e.target.value);
                   localStorage.setItem("recipient", e.target.value);
                   setAddressErr("");
                 }}

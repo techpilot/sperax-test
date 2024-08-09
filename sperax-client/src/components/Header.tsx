@@ -11,9 +11,8 @@ const Header = () => {
       const wallet = await connectWallet();
       setWalletAddress(wallet);
       localStorage.setItem("wallet", wallet);
-      console.log(wallet);
     } catch (error) {
-      console.log(error);
+      alert("An error connecting to the wallet");
     }
   };
 

@@ -22,13 +22,14 @@ const ContractContextProvider: React.FC<{ children: ReactNode }> = ({
       const web3Instance = new Web3(window.web3.currentProvider);
       setWeb3(web3Instance);
     } else {
-      console.log(
+      alert(
         "No Ethereum detected in your browser. You should consider trying MetaMask!"
       );
     }
     connectWallet();
   }, []);
 
+  // Connects to a browser ehtereum wallet
   const connectWallet = async () => {
     try {
       const web3Instance = new Web3(window?.ethereum);
@@ -48,6 +49,7 @@ const ContractContextProvider: React.FC<{ children: ReactNode }> = ({
     }
   };
 
+  // connects to smart contract using the provided ABi and contract address
   const connectContract = () => {
     const web3Instance = new Web3(window?.ethereum);
     const contractInstance = new web3Instance.eth.Contract(

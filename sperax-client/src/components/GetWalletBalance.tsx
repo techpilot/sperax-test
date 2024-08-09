@@ -11,13 +11,17 @@ const GetWalletBalance = () => {
   const [resError, setResError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
+  // handles functionlality for getting a wallet balance
   const handleGetBalance = async (e: any) => {
     e.preventDefault();
     try {
       setLoading(true);
+
+      // checks if wallet provided address is valid
       if (isAddress(address)) {
         const newContract = connectContract();
 
+        // gets the address balance from blockchain
         const balance = await newContract?.methods.getBalance(address).call();
         setBalance(balance);
       } else {
@@ -26,7 +30,6 @@ const GetWalletBalance = () => {
       setLoading(false);
     } catch (error: any) {
       setLoading(false);
-      console.log(error);
       if (error?.message.toLowerCase().includes("gas")) {
         setResError(
           "You do not have enough gas fee to perform this transaction"

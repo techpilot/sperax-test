@@ -34,11 +34,13 @@ const SendTokenModal = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [resError, setResError] = useState<string>("");
 
+  // closes the send token modal
   const closeModal = () => {
     localStorage.setItem("modal_open", "0");
     setModalIsOpen(0);
   };
 
+  // Initiates token transfer to the provided recipient's address
   const handleTokenTransfer = async () => {
     try {
       setLoading(true);
