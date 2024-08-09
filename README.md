@@ -10,11 +10,11 @@
   </p>
 </div>
 
-# About The Repository
+## About The Repository
 
 This is the official GitHub for the Assignment by Sperax for a position applied by the author. This repository contains the code and documentation for both the Smart Contract and the React Frontend code. Visit individual directories to see the installation process for the repository projects, starting with the smart contract.
 
-## Author
+### Author
 
 Stephen Ngwu
 
