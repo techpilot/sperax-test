@@ -63,4 +63,3 @@ Setup and run this project in your computer.
 
 [React_js]: https://react.dev/
 [Typescript_url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript
-[Docs_url]: https://github.com/techpilot/sperax-test/blob/main/sperax-client/public/sperax-client-documentation.pdf
